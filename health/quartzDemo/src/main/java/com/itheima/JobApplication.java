@@ -1,0 +1,17 @@
+package com.itheima;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.io.IOException;
+
+/**
+ * @Author: Terrance
+ * @Date: 2020-09-25 17:26
+ */
+public class JobApplication {
+    public static void main(String[] args) throws IOException {
+        new ClassPathXmlApplicationContext("classpath:spring-jobs.xml");
+        System.in.read();
+
+    }
+}

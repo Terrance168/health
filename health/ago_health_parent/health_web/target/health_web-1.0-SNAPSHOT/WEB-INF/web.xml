@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>health_web</display-name>
+    <!-- 解决post乱码 -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 指定加载的配置文件 ，通过参数contextConfigLocation加载 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>*.do</url-pattern>
+        <!--<url-pattern>/*</url-pattern>-->
+        <!--
+        *.do 与/*的区别
+        *.do 拦截 以.do结尾的请求，其它不拦截   json
+        /* 拦截 所有的请求 <mvc:default-servlet-handler/> html,js,jpg, jsp  controller return string视图
+        springMVC: 学了啥，常用的
+        // 1。接收前端传递过来的参数 有哪些方式 3种
+        // 1.1 @RequestParam, form.submit, htpp://....?name=xxx&age=xx   springMVC默认接收参数的方式(参数的名称必须与等号左边一致， 通过value设置参数别名）
+        // 1.2 @PathVariable http://...../{abc}, 参数来源于url中的路径
+        // 1.3 @RequestBody   请求体， axios.post(url,data) data=> RequestBody业接收， 有且只有一个RequestBody
+        // 2. Controller方法的返回值
+        // 2.1  返回字符串 且没@ResponseBody. 返回字符串代表着视图的名称-> 页面的名称
+        // 2.2  返回java对象,必须加上@ResponseBody，把java对象转成json格式
+        // 2.3  ModelAndView: 返回视图，jsp才需要用到Model
+        // 3. 拦截器, preHandler 权限，登陆拦截... 用得比较少
+        -->
+    </servlet-mapping>
+</web-app>
